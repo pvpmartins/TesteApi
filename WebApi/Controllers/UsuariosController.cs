@@ -42,7 +42,7 @@ namespace WebApi.Controllers
         [HttpGet("{id}")]
         public ActionResult <Usuarios> Get(int id)
         {
-         //   var usuario = _repository.getUsuariosById(id);
+            var usuario = _repository.GetUsuariosById(id);
 
             return Ok(usuario); 
         }

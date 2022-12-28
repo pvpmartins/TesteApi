@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace WebApi
 {
@@ -32,12 +33,16 @@ namespace WebApi
             services.AddControllers();
             services.AddScoped<IUsuariosRepo, UsuariosRepo>();
             services.AddScoped<IUsuariosService, UsuariosService>();
+            services.AddScoped<ICategoriasRepo, CategoriasRepo>();
+            services.AddScoped<ICategoriasService, CategoriasService>();
+            services.AddScoped<IProductsRepo, ProductsRepo>();
+            services.AddScoped<IProductsService, ProductsService>();
 
             var key = Encoding.ASCII.GetBytes(Settings.Secret);
             services.AddAuthentication(options =>
             {
-                //options.DefaultScheme = JwtDefaults
-                //options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer(x =>
             {
                 x.RequireHttpsMetadata = false;

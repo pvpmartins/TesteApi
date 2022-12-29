@@ -24,9 +24,17 @@ namespace WebApi.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<Produtos>> Get([FromQuery] string term, int page, int pageSize)
         {
-            var pag = _service.GetAll(term, page, pageSize);
+            try
+            {
+                var pag = _service.GetAll(term, page, pageSize);
 
-            return Ok(pag);
+                return Ok(pag);
+            }catch (Exception ex)
+            {
+                return BadRequest(new { message = "Nenhum produto foi encontrado com base nos parametros inseridos." });
+            }
+
+
         }
 
         // GET api/<ProductsController>/5
@@ -57,14 +65,14 @@ namespace WebApi.Controllers
 
             try {
                 _service.Add(produto);
+            
+                return Ok(produto);
             }catch (Exception err)
             {
                 return BadRequest(new { message = "Esse produto ja esta cadastrado." });
             }
 
-            return Ok(produto);
         }
-
 
         // PUT api/<ProductsController>/5
         [HttpPut("{id}")]

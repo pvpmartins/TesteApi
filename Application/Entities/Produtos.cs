@@ -15,7 +15,7 @@ namespace Application.Entities
         public bool Status { get; set; }
 
         [ForeignKey(nameof(CategoriaId))]
-        [InverseProperty(nameof(Categorias.Produtos))]
+        //[InverseProperty(nameof(Categorias.Produtos))]
         public virtual Categorias Categoria { get; set; }
     }
 }
